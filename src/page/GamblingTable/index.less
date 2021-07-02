@@ -1,9 +1,45 @@
-.gambling-table {
+.right-panel {
     flex: 1;
-    background: rgb(95, 89, 89);
+    background: #5f5959;
     height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
-    .dice-cup {
-        display: flex;
+    .left-times {
+        font-size: 25px;
+        margin-bottom: 50px;
+    }
+
+    .gambling-table {
+        width: 600px;
+
+        .dice-cup {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: solid 5px white;
+            border-radius: 15px;
+        }
+
+        .dice-cup.selected {
+            height: 120px;
+            margin-bottom: 50px;
+        }
+
+        .dice-cup.unselected {
+            height: 300px;
+        }
+    }
+
+    .roll-btn {
+        width: 200px;
+        height: 100px;
+        font-size: 50px;
+        border: 1px;
+        border-radius: 30px;
+        margin-top: 50px;
     }
 }

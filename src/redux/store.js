@@ -7,9 +7,11 @@ import {
 //处理redux的异步任务的中间件
 import thunk from 'redux-thunk'
 import dice from './reducer/dice_reduce'
+import score from './reducer/score_reduce'
 
 const reducer = combineReducers({
-    dice
+    dice,
+    score
 })
 
 const store = createStore(reducer, compose(

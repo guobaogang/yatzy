@@ -1,5 +1,9 @@
-const roll_dice = 'ROLL_DICE';
+const ROLL_DICE = 'roll_dice';
+const CALC_SCORE = 'calc_score';
+const INIT_DICE = 'init_dice';
 
 export {
-    roll_dice
+    ROLL_DICE,
+    CALC_SCORE,
+    INIT_DICE
 }

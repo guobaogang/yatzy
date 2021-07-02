@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import './index.less';
 import Dice from '../../components/Dice';
-import { useSelector, useDispatch } from 'react-redux';
-import { roll } from '../../redux/action/dic_action';
+import {useSelector, useDispatch} from 'react-redux';
+import {roll} from '../../redux/action/dice_action';
 
 function GamblingTable() {
 
@@ -20,24 +20,27 @@ function GamblingTable() {
     }
 
     return (
-        <div className='gambling-table'>赌桌
-            <div>已选中</div>
-            <div className='dice-cup'>
-                {
-                    selected.map((item: any, index: number) => {
-                        return <Dice key={index} point={item} index={index} selected={true} />
-                    })
-                }
+        <div className={'right-panel'}>
+            <div className={'left-times'}>
+                剩余次数：{3 - rollTimes}
             </div>
-            <div>未选中</div>
-            <div className='dice-cup'>
-                {
-                    left.map((item: any, index: number) => {
-                        return <Dice key={index} point={item} index={index} selected={false} />
-                    })
-                }
+            <div className='gambling-table'>
+                <div className='dice-cup selected'>
+                    {
+                        selected.map((item: any, index: number) => {
+                            return <Dice key={index} point={item} index={index} selected={true}/>
+                        })
+                    }
+                </div>
+                <div className='dice-cup unselected'>
+                    {
+                        left.map((item: any, index: number) => {
+                            return <Dice key={index} point={item} index={index} selected={false}/>
+                        })
+                    }
+                </div>
             </div>
-            <button onClick={myRoll} disabled={isRolling || rollTimes === 3}>roll</button>
+            <button className={'roll-btn'} onClick={myRoll} disabled={isRolling || rollTimes === 3}>roll</button>
         </div>
     );
 }

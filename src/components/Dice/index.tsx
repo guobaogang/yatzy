@@ -1,13 +1,12 @@
-<div className="dice"></div>
-import React, { useState } from "react";
+import React, {useState} from "react";
 import './index.less';
-import { useSelector, useDispatch } from 'react-redux';
-import { select, unselect } from '../../redux/action/dic_action';
+import {useSelector, useDispatch} from 'react-redux';
+import {select, unselect} from '../../redux/action/dice_action';
 
 function Dice(props: any) {
-    const { point, index, selected } = props;
+    const {point, index, selected} = props;
     const dispatch = useDispatch();
-    const toogleSelect = () => {
+    const toggleSelect = () => {
         if (selected) {
             dispatch(unselect(index, point))
         } else {
@@ -16,7 +15,7 @@ function Dice(props: any) {
     }
 
     return (
-        <div className={`dice dice-${point}`} onClick={toogleSelect}></div>
+        <div className={`dice dice-${point}`} onClick={toggleSelect}/>
     );
 }
 

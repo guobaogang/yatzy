@@ -1,6 +1,11 @@
 import {
-    roll_dice
+    ROLL_DICE
 } from '../constant/redux_type';
+import {calc} from './score_action';
+
+export const init = () => {
+
+}
 
 export const roll = () => {
     return (dispatch, getState) => {
@@ -11,7 +16,7 @@ export const roll = () => {
         } = getState().dice;
 
         dispatch({
-            type: roll_dice,
+            type: ROLL_DICE,
             dice: {
                 left: left.fill(0),
                 isRolling: true
@@ -22,15 +27,16 @@ export const roll = () => {
                 left[index] = Math.ceil(Math.random() * 6);
             }
             dispatch({
-                type: roll_dice,
+                type: ROLL_DICE,
                 dice: {
                     left: left,
                     isRolling: false,
                     rollTimes: rollTimes + 1
                 }
             });
+            dispatch(calc());
             clearTimeout(timer);
-        }, 2000)
+        }, 1000)
     }
 }
 
@@ -46,7 +52,7 @@ export const select = (index, num) => {
         left.splice(index, 1);
         selected.push(num);
         dispatch({
-            type: roll_dice,
+            type: ROLL_DICE,
             dice: {
                 left,
                 selected
@@ -68,7 +74,7 @@ export const unselect = (index, num) => {
         selected.splice(index, 1);
         left.push(num);
         dispatch({
-            type: roll_dice,
+            type: ROLL_DICE,
             dice: {
                 left,
                 selected
