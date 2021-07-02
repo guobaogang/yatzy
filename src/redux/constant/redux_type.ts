@@ -1,7 +1,5 @@
-const add_stock = 'ADD_STOCK';
-const get_stock_detail = 'GET_STOCK_DETAIL';
+const roll_dice = 'ROLL_DICE';
 
 export {
-    add_stock,
-    get_stock_detail
+    roll_dice
 }
