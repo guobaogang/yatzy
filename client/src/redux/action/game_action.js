@@ -193,7 +193,7 @@ export const confirmMyScore = (key) => {
         socket.emit('confirmScore', {
             score: tempScore
         });
-        checkWin(getState().game, true);
+        //checkWin(getState().game, true);
     }
 }
 
