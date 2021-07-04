@@ -1,5 +1,5 @@
 import {
-    CALC_MY_SCORE, CONFIRM_MY_SCORE, INIT_GAME_DATA
+    CALC_MY_SCORE, CALC_OPPONENT_SCORE, CONFIRM_MY_SCORE, CONFIRM_OPPONENT_SCORE, INIT_GAME_DATA
 } from '../constant/redux_type';
 
 const init = {
@@ -41,7 +41,8 @@ const init = {
     },
     rounds: 0, //轮次
     isMyTurn: true,    //who is turn
-    start: false
+    start: false,
+    position: 1
 };
 
 export default (state = init, action) => {
@@ -55,12 +56,37 @@ export default (state = init, action) => {
             return {
                 ...state
             };
+        case CALC_OPPONENT_SCORE:
+            state.opponent.score = action.score
+            return {
+                ...state
+            };
         case CONFIRM_MY_SCORE:
             state.myInfo.score = action.score
             state.isMyTurn = false
+            if (state.position === 2) {
+                if (state.rounds === 12) {
+                    state.start = false
+                } else {
+                    state.rounds++
+                }
+            }
             return {
                 ...state
+            };
+        case CONFIRM_OPPONENT_SCORE:
+            state.opponent.score = action.score
+            state.isMyTurn = true
+            if (state.position === 1) {
+                if (state.rounds === 12) {
+                    state.start = false
+                } else {
+                    state.rounds++
+                }
             }
+            return {
+                ...state
+            };
         default:
             return state
     }

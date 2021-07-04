@@ -41,6 +41,8 @@ function ScoreColumn(props: any) {
             {
                 // @ts-ignore
                 Object.keys(keyMap).map((key: any) => {
+                    console.log('key === ' + key);
+                    console.log('value === ' + (score && score[key]))
                     // @ts-ignore
                     return isTitle ? (key === 'name' ?
                         <div key={key} className={`score-col-item score-col-${key}`}>
@@ -57,9 +59,9 @@ function ScoreColumn(props: any) {
                                     key === 'name' ? play.name : score[key]}
                             </div> :
                             <div key={key} onClick={() => confirmScore(key)}
-                                 className={`score-col-item score-col-${key} ` + (score[key].confirm === undefined ? 'temp-score' : 'confirm-score')}>
+                                 className={`score-col-item score-col-${key} ` + (score[key] && score[key].confirm === undefined ? 'temp-score' : 'confirm-score')}>
                                 {
-                                    score[key].confirm === undefined ? score[key].temp : score[key].confirm
+                                    score[key] && score[key].confirm === undefined ? score[key] && score[key].temp : score[key] && score[key].confirm
                                 }
                             </div>)
                 })

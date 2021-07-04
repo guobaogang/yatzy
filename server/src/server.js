@@ -15,18 +15,35 @@ io.on("connection", socket => {
         user = userInfo;
         if (connectedUsers.length === 2) return;
         connectedUsers.push(userInfo)
+        console.log(connectedUsers)
         cb(connectedUsers);
         userJoin();
     });
 
     //广播更新用户列表
     function userJoin() {
-        io.emit('userJoin', user);
+        socket.broadcast.emit('userJoin', user);
     }
 
     function userLeave() {
-        io.emit('userLeave', user);
+        socket.broadcast.emit('userLeave', user);
     }
+
+    socket.on('startRoll', () => {
+        socket.broadcast.emit('userStartRoll', user);
+    })
+
+    socket.on('endRoll', (dice) => {
+        socket.broadcast.emit('userEndRoll', dice, user);
+    })
+
+    socket.on('confirmScore', (score) => {
+        socket.broadcast.emit('userConfirmScore', score, user);
+    })
+
+    socket.on('select', (dice) => {
+        socket.broadcast.emit('userSelect', dice, user);
+    })
 
     //断开socket连接
     socket.on('disconnect', () => {

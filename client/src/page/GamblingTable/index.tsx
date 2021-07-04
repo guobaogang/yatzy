@@ -44,8 +44,9 @@ function GamblingTable() {
                     }
                 </div>
             </div>
-            {isMyTurn &&
-            <button className={'roll-btn'} onClick={myRoll} disabled={isRolling || rollTimes === 3}>Roll</button>}
+            <button style={{visibility: isMyTurn ? "visible" : "hidden"}} className={'roll-btn'} onClick={myRoll}
+                    disabled={isRolling || rollTimes === 3}>Roll
+            </button>
         </div>
     );
 }

@@ -2,9 +2,12 @@ import {
     CALC_MY_SCORE,
     INIT_DICE,
     CONFIRM_MY_SCORE,
-    INIT_GAME_DATA
+    INIT_GAME_DATA,
+    CALC_OPPONENT_SCORE,
+    CONFIRM_OPPONENT_SCORE
 } from '../constant/redux_type';
 import calcScore from "../../utils/calculation";
+import socket from "../../model/socket";
 
 export const initGameData = (users, me) => {
     return (dispatch) => {
@@ -143,9 +146,23 @@ export const calcMyScore = () => {
         } = getState().dice;
 
         let tempScore = calcScore(left, selected, getState().game.myInfo.score);
-        console.log(tempScore)
         dispatch({
             type: CALC_MY_SCORE,
+            score: tempScore
+        })
+    }
+}
+
+export const calcOpponentScore = () => {
+    return (dispatch, getState) => {
+        const {
+            left,
+            selected
+        } = getState().dice;
+
+        let tempScore = calcScore(left, selected, getState().game.opponent.score);
+        dispatch({
+            type: CALC_OPPONENT_SCORE,
             score: tempScore
         })
     }
@@ -173,6 +190,36 @@ export const confirmMyScore = (key) => {
         dispatch({
             type: INIT_DICE
         })
+        socket.emit('confirmScore', {
+            score: tempScore
+        });
+        checkWin(getState().game, true);
+    }
+}
+
+export const userConfirmScore = (score, user) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: CONFIRM_OPPONENT_SCORE,
+            score: score && score.score
+        })
+        dispatch({
+            type: INIT_DICE
+        })
+        //checkWin(getState().game, false);
+    }
+}
+
+function checkWin(game, isMe) {
+    const {position, rounds} = game;
+    if (((isMe && position === 2) || (!isMe && position === 1)) && rounds === 12) {
+        if (game.myInfo.total > game.opponent.total) {
+            alert('游戏结束，' + game.myInfo.name + '获胜！')
+        } else if (game.myInfo.total < game.opponent.total) {
+            alert('游戏结束，' + game.opponent.name + '获胜！')
+        } else {
+            alert('游戏结束，平局')
+        }
     }
 }
 
