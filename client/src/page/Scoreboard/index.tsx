@@ -24,7 +24,7 @@ function Scoreboard() {
                         </>
                 }
                 <div className={'reword-desc'}>
-                    1~6总计超过63分可获得j奖励分
+                    1~6总计超过63分可获得奖励分
                 </div>
             </div>
         </div>
